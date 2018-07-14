@@ -1,15 +1,13 @@
 package QualityUnit;
 
-public class QueryParser {
+public class QueryParser extends AbstractParser{
 
     public Query parseQuery(String inputQuery) {
 
+        Query query = new Query();
 
     String spaceDelimiter = "[ ]";
-    String pointDelimiter = "[.]";
     String dushDelimiter = "[-]";
-
-    Query query = new Query();
 
     String [] queryTokens = inputQuery.split(spaceDelimiter);
 
@@ -17,14 +15,7 @@ public class QueryParser {
         query.setServiceId(0);
         query.setVariationId(0);
     } else {
-        String[] first = queryTokens[1].split(pointDelimiter);
-        if (first.length == 2) {
-            query.setServiceId(Integer.parseInt(first[0]));
-            query.setVariationId(Integer.parseInt(first[1]));
-        } else {
-            query.setServiceId(Integer.parseInt(first[0]));
-            query.setVariationId(0);
-        }
+        populateServiceData(inputQuery, query);
     }
 
     if(queryTokens[2].equals("*")) {
@@ -32,20 +23,7 @@ public class QueryParser {
         query.setCategoryId(0);
         query.setSubcategoryId(0);
     } else {
-        String[] second = queryTokens[2].split(pointDelimiter);
-        if (second.length == 3) {
-            query.setQuestionTypeId(Integer.parseInt(second[0]));
-            query.setCategoryId(Integer.parseInt(second[1]));
-            query.setSubcategoryId(Integer.parseInt(second[2]));
-        } else if (second.length == 2) {
-            query.setQuestionTypeId(Integer.parseInt(second[0]));
-            query.setCategoryId(Integer.parseInt(second[1]));
-            query.setSubcategoryId(0);
-        } else {
-            query.setQuestionTypeId(Integer.parseInt(second[0]));
-            query.setCategoryId(0);
-            query.setSubcategoryId(0);
-        }
+        populateQuestionTypeData(inputQuery, query);
     }
         query.setResponseType(queryTokens[3]);
 
