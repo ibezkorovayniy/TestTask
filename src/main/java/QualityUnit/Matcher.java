@@ -19,7 +19,7 @@ public class Matcher {
                         && (tempQuery.getSubcategoryId() == 0 || tempQuery.getSubcategoryId() == tempLine.getSubcategoryId())
                         && (tempQuery.getResponseType().equals(tempLine.getResponseType()))
                         && ((tempQuery.getDateTo() == null && tempQuery.getDateFrom().equals(tempLine.getDate()))
-                            || (tempLine.getDate().isAfter(tempQuery.getDateFrom())
+                                || (tempLine.getDate().isAfter(tempQuery.getDateFrom())
                                 && tempLine.getDate().isBefore(tempQuery.getDateTo())))) {
 
                     result.add(tempLine.getTime());

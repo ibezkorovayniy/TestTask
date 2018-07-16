@@ -5,7 +5,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
 import java.util.Locale;
 
-public class Query extends AbstractData{
+public class Query extends AbstractData {
 
     private LocalDate dateFrom;
     private LocalDate dateTo;
@@ -14,15 +14,15 @@ public class Query extends AbstractData{
         return dateFrom;
     }
 
-    public LocalDate getDateTo() {
-        return dateTo;
-    }
-
     public void setDateFrom(String dateFrom) {
 
         this.dateFrom = LocalDate.parse(dateFrom, DateTimeFormatter
                 .ofLocalizedDate(FormatStyle.MEDIUM)
                 .withLocale(Locale.GERMAN));
+    }
+
+    public LocalDate getDateTo() {
+        return dateTo;
     }
 
     public void setDateTo(String dateTo) {

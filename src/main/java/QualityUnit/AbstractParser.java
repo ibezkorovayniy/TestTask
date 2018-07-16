@@ -2,16 +2,13 @@ package QualityUnit;
 
 public abstract class AbstractParser {
 
+    private final String SPACEDELIMITER = "[ ]";
+    private final String POINTDELIMITER = "[.]";
     private String[] inputTokens;
-    private String spaceDelimiter = "[ ]";
-    private String pointDelimiter = "[.]";
 
     public void populateServiceData(String input, AbstractData abstractData) {
-
-        inputTokens = input.split(spaceDelimiter);
-
-        String[] service = inputTokens[1].split(pointDelimiter);
-
+        inputTokens = input.split(SPACEDELIMITER);
+        String[] service = inputTokens[1].split(POINTDELIMITER);
         if (service.length == 2) {
             abstractData.setServiceId(Integer.parseInt(service[0]));
             abstractData.setVariationId(Integer.parseInt(service[1]));
@@ -22,23 +19,22 @@ public abstract class AbstractParser {
     }
 
     public void populateQuestionTypeData(String input, AbstractData abstractData) {
-
-            inputTokens = input.split(spaceDelimiter);
-            String [] questionType = inputTokens[2].split(pointDelimiter);
-            if(questionType.length == 3) {
-                abstractData.setQuestionTypeId(Integer.parseInt(questionType[0]));
-                abstractData.setCategoryId(Integer.parseInt(questionType[1]));
-                abstractData.setSubcategoryId(Integer.parseInt(questionType[2]));
-            } else if(questionType.length == 2){
-                abstractData.setQuestionTypeId(Integer.parseInt(questionType[0]));
-                abstractData.setCategoryId(Integer.parseInt(questionType[1]));
-                abstractData.setSubcategoryId(0);
-            } else {
-                abstractData.setQuestionTypeId(Integer.parseInt(questionType[0]));
-                abstractData.setCategoryId(0);
-                abstractData.setSubcategoryId(0);
-            }
+        inputTokens = input.split(SPACEDELIMITER);
+        String[] questionType = inputTokens[2].split(POINTDELIMITER);
+        if (questionType.length == 3) {
+            abstractData.setQuestionTypeId(Integer.parseInt(questionType[0]));
+            abstractData.setCategoryId(Integer.parseInt(questionType[1]));
+            abstractData.setSubcategoryId(Integer.parseInt(questionType[2]));
+        } else if (questionType.length == 2) {
+            abstractData.setQuestionTypeId(Integer.parseInt(questionType[0]));
+            abstractData.setCategoryId(Integer.parseInt(questionType[1]));
+            abstractData.setSubcategoryId(0);
+        } else {
+            abstractData.setQuestionTypeId(Integer.parseInt(questionType[0]));
+            abstractData.setCategoryId(0);
+            abstractData.setSubcategoryId(0);
         }
+    }
 }
 
 

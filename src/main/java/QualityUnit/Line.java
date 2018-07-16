@@ -7,8 +7,10 @@ import java.util.Locale;
 
 public class Line extends AbstractData {
 
+    private final DateTimeFormatter FORMATTER = DateTimeFormatter
+            .ofLocalizedDate(FormatStyle.MEDIUM)
+            .withLocale(Locale.GERMAN);
     private LocalDate date;
-
     private int time;
 
     public LocalDate getDate() {
@@ -16,10 +18,7 @@ public class Line extends AbstractData {
     }
 
     public void setDate(String date) {
-
-        this.date = LocalDate.parse(date, DateTimeFormatter
-                .ofLocalizedDate(FormatStyle.MEDIUM)
-                .withLocale(Locale.GERMAN));
+        this.date = LocalDate.parse(date, FORMATTER);
     }
 
     public int getTime() {
