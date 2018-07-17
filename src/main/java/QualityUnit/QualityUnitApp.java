@@ -3,8 +3,12 @@ package QualityUnit;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
+import java.util.OptionalDouble;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 public class QualityUnitApp {
 
@@ -18,7 +22,6 @@ public class QualityUnitApp {
         QueryParser queryParser = new QueryParser();
 
         String pathName = args[0];
-
         File file = new File(pathName);
 
         try {
@@ -39,23 +42,22 @@ public class QualityUnitApp {
 
         resultList = matcher.findMatches(lineList, queryList);
         print(resultList);
+
     }
 
 
     private static void print(List<List<Integer>> resultList) {
-        for (List<Integer> list: resultList) {
-            if (list.size() == 0) {
-                System.out.println("–");
-                continue;
-            }
-            int avg = 0;
-            for (int i = list.size() - 1; i >= 0; i--) {
-                avg += list.get(i);
-            }
-            avg /= list.size();
-
-            System.out.println(avg);
-        }
+        resultList.stream()
+                .mapToDouble((integers->integers.stream()
+                        .collect(Collectors.summarizingInt(Integer::intValue))
+                        .getAverage()))
+                .forEach(x -> {
+                    if(x < 1) {
+                        System.out.println("-");
+                    }else {
+                        System.out.println((int)x);
+                    }
+                });
     }
 }
 
